@@ -1,14 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import { useForm } from "react-hook-form";
+import { addUser, editUser } from "../store/slices/userSelected.slice";
 
-const UsersForm = ({
-  getUsers,
-  showAndHideModal,
-  usernameSelected,
-  deselectUser,
-}) => {
+const UsersForm = ({ showAndHideModal, deselectUser }) => {
+  const userSelected = useSelector((state) => state.userSelected);
   const { register, handleSubmit, reset } = useForm();
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
   const defaultValues = {
     first_name: "",
     last_name: "",
@@ -16,36 +15,27 @@ const UsersForm = ({
     password: "",
     birthday: "",
   };
-  const [showPassword, setShowPassword] = useState(false);
   useEffect(() => {
-    if (usernameSelected !== null) {
+    if (userSelected !== null) {
       reset({
-        first_name: usernameSelected.first_name,
-        last_name: usernameSelected.last_name,
-        email: usernameSelected.email,
-        password: usernameSelected.password,
-        birthday: usernameSelected.birthday,
+        first_name: userSelected.first_name,
+        last_name: userSelected.last_name,
+        email: userSelected.email,
+        password: userSelected.password,
+        birthday: userSelected.birthday,
       });
     }
-  }, [usernameSelected, reset]);
+  }, [userSelected, reset]);
   const submit = (data) => {
-    if (usernameSelected === null) {
-      axios
-        .post("https://users-crud1.herokuapp.com/users/", data)
-        .then(() => getUsers());
+    if (userSelected === null) {
+      dispatch(addUser(data));
     } else {
-      axios
-        .put(
-          `https://users-crud1.herokuapp.com/users/${usernameSelected.id}/`,
-          data
-        )
-        .then(() => getUsers());
+      dispatch(editUser(userSelected.id, data));
     }
     showAndHideModal();
     deselectUser();
     reset(defaultValues);
   };
-
   return (
     <div className="users-form modal">
       <form onSubmit={handleSubmit(submit)}>
@@ -59,7 +49,7 @@ const UsersForm = ({
         >
           <i className="bx bx-x"></i>
         </button>
-        {usernameSelected === null ? (
+        {userSelected === null ? (
           <h2>Nuevo Usuario</h2>
         ) : (
           <h2>Editar Usuario</h2>
@@ -122,9 +112,7 @@ const UsersForm = ({
           />
         </div>
         <button className="btn-to-accept">
-          {usernameSelected === null
-            ? "Agregar nuevo usuario"
-            : "Guardar Cambios"}
+          {userSelected === null ? "Agregar nuevo usuario" : "Guardar Cambios"}
         </button>
       </form>
     </div>

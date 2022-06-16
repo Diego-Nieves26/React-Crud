@@ -1,75 +1,60 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { IsLoading, UsersForm, UsersList } from "./components";
+import { getUsers } from "./store/slices/users.slice";
+import { setUserDeleted } from "./store/slices/userDeleted.slice";
+import { setUserSelected } from "./store/slices/userSelected.slice";
 import "./App.css";
-import UsersList from "./components/UsersList";
-import UsersForm from "./components/UsersForm";
 
 function App() {
-  const [users, setUsers] = useState([]);
+  const isLoading = useSelector((state) => state.isLoading);
+  const users = useSelector((state) => state.users);
+  const userDeleted = useSelector((state) => state.userDeleted);
   const [modalForm, setModalForm] = useState(false);
-  const [modalRemove, setModalRemove] = useState(false);
-  const [userDeleted, setUserDeleted] = useState("");
-  const [usernameSelected, setUsernameSelected] = useState(null);
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    getUsers();
-  }, []);
-  const getUsers = () => {
-    axios
-      .get("https://users-crud1.herokuapp.com/users/")
-      .then((res) => setUsers(res.data));
-  };
+    dispatch(getUsers());
+  }, [dispatch]);
   const showAndHideModal = () => {
     setModalForm(!modalForm);
   };
-  const removeUser = (id, name) => {
-    axios
-      .delete(`https://users-crud1.herokuapp.com/users/${id}/`)
-      .then(() => getUsers());
-    setUserDeleted(name);
-    setModalRemove(!modalRemove);
-  };
   const selectUser = (user) => {
-    setUsernameSelected(user);
+    dispatch(setUserSelected(user));
     setModalForm(!modalForm);
   };
-  const deselectUser = () => setUsernameSelected(null);
-
+  const deselectUser = () => dispatch(setUserSelected(null));
   return (
     <div className="App">
+      {isLoading && <IsLoading />}
       <nav>
         <h1>Usuarios</h1>
         <button onClick={showAndHideModal}>
           <i className="bx bx-plus"></i> Crear nuevo usuario
         </button>
       </nav>
-      <UsersList
-        users={users}
-        removeUser={removeUser}
-        selectUser={selectUser}
-      />
+      <UsersList users={users} selectUser={selectUser} />
       {modalForm && (
         <UsersForm
-          getUsers={getUsers}
           showAndHideModal={showAndHideModal}
-          usernameSelected={usernameSelected}
           deselectUser={deselectUser}
         />
       )}
-      {modalRemove && (
+      {userDeleted !== null && (
         <div className="modal">
           <div className="modal-remove">
             <button
               className="btn-close"
-              onClick={() => setModalRemove(!modalRemove)}
+              onClick={() => dispatch(setUserDeleted(null))}
             >
               <i className="bx bx-x"></i>
             </button>
             <h1>Eliminar Usuario</h1>
-            <p>El usuario <b>{userDeleted}</b> se ha eliminado</p>
+            <p>
+              El usuario <b>{userDeleted}</b> se ha eliminado
+            </p>
             <button
               className="btn-to-accept"
-              onClick={() => setModalRemove(!modalRemove)}
+              onClick={() => dispatch(setUserDeleted(null))}
             >
               Aceptar
             </button>

@@ -1,4 +1,8 @@
-const UsersList = ({ users, removeUser, selectUser }) => {
+import { useDispatch } from "react-redux/es/exports";
+import { removeUser } from "../store/slices/userDeleted.slice";
+
+const UsersList = ({ users, selectUser }) => {
+  const dispatch = useDispatch();
   return (
     <div className="user-list">
       {users.map((user) => (
@@ -16,7 +20,9 @@ const UsersList = ({ users, removeUser, selectUser }) => {
             <button
               type="button"
               onClick={() =>
-                removeUser(user.id, user.first_name + " " + user.last_name)
+                dispatch(
+                  removeUser(user.id, user.first_name + " " + user.last_name)
+                )
               }
             >
               <i className="bx bx-trash"></i>
