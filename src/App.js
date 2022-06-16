@@ -4,6 +4,7 @@ import { IsLoading, UsersForm, UsersList } from "./components";
 import { getUsers } from "./store/slices/users.slice";
 import { setUserDeleted } from "./store/slices/userDeleted.slice";
 import { setUserSelected } from "./store/slices/userSelected.slice";
+import { motion } from "framer-motion";
 import "./App.css";
 
 function App() {
@@ -28,9 +29,13 @@ function App() {
       {isLoading && <IsLoading />}
       <nav>
         <h1>Usuarios</h1>
-        <button onClick={showAndHideModal}>
+        <motion.button
+          onClick={showAndHideModal}
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.8 }}
+        >
           <i className="bx bx-plus"></i> Crear nuevo usuario
-        </button>
+        </motion.button>
       </nav>
       <UsersList users={users} selectUser={selectUser} />
       {modalForm && (

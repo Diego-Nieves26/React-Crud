@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux/es/exports";
+import { motion } from "framer-motion";
 import { removeUser } from "../store/slices/userDeleted.slice";
 
 const UsersList = ({ users, selectUser }) => {
@@ -17,7 +18,9 @@ const UsersList = ({ users, selectUser }) => {
             </span>
           </div>
           <div className="btn-card">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
               type="button"
               onClick={() =>
                 dispatch(
@@ -26,10 +29,15 @@ const UsersList = ({ users, selectUser }) => {
               }
             >
               <i className="bx bx-trash"></i>
-            </button>
-            <button type="button" onClick={() => selectUser(user)}>
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
+              type="button"
+              onClick={() => selectUser(user)}
+            >
               <i className="bx bx-pencil"></i>
-            </button>
+            </motion.button>
           </div>
         </div>
       ))}

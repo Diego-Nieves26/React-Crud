@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux/es/exports";
 import { useForm } from "react-hook-form";
 import { addUser, editUser } from "../store/slices/userSelected.slice";
+import { motion } from "framer-motion";
 
 const UsersForm = ({ showAndHideModal, deselectUser }) => {
   const userSelected = useSelector((state) => state.userSelected);
@@ -38,17 +39,23 @@ const UsersForm = ({ showAndHideModal, deselectUser }) => {
   };
   return (
     <div className="users-form modal">
-      <form onSubmit={handleSubmit(submit)}>
-        <button
+      <motion.form
+        onSubmit={handleSubmit(submit)}
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+      >
+        <motion.button
           type="button"
           className="btn-close"
           onClick={() => {
             deselectUser();
             showAndHideModal();
           }}
+          whileHover={{ scale: 1.5 }}
+          whileTap={{ scale: 0.8 }}
         >
           <i className="bx bx-x"></i>
-        </button>
+        </motion.button>
         {userSelected === null ? (
           <h2>Nuevo Usuario</h2>
         ) : (
@@ -60,7 +67,6 @@ const UsersForm = ({ showAndHideModal, deselectUser }) => {
             type="text"
             {...register("first_name")}
             id="first_name"
-            placeholder="Nombre"
             required
           />
         </div>
@@ -70,36 +76,30 @@ const UsersForm = ({ showAndHideModal, deselectUser }) => {
             type="text"
             {...register("last_name")}
             id="last_name"
-            placeholder="Apellido"
             required
           />
         </div>
         <div>
           <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            {...register("email")}
-            id="email"
-            placeholder="Email"
-            required
-          />
+          <input type="email" {...register("email")} id="email" required />
         </div>
         <div>
           <label htmlFor="password">Contraseña</label>
-          <input
-            type={showPassword ? "text" : "password"}
-            {...register("password")}
-            id="password"
-            placeholder="Contraseña"
-            required
-          />
-          <button
-            type="button"
-            className="show-and-hide"
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            <i className="bx bx-show"></i>
-          </button>
+          <div className="password-input">
+            <input
+              type={showPassword ? "text" : "password"}
+              {...register("password")}
+              id="password"
+              required
+            />
+            <button
+              type="button"
+              className="show-and-hide"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              <i className="bx bx-show"></i>
+            </button>
+          </div>
         </div>
         <div>
           <label htmlFor="birthday">Fecha de nacimiento</label>
@@ -111,10 +111,14 @@ const UsersForm = ({ showAndHideModal, deselectUser }) => {
             required
           />
         </div>
-        <button className="btn-to-accept">
+        <motion.button
+          className="btn-to-accept"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.8 }}
+        >
           {userSelected === null ? "Agregar nuevo usuario" : "Guardar Cambios"}
-        </button>
-      </form>
+        </motion.button>
+      </motion.form>
     </div>
   );
 };

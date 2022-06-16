@@ -7,10 +7,12 @@
 }
 body {
   padding: 30px 0;
+  background-color: #e9d5ca;
 }
 .App {
   width: 90%;
   margin: auto;
+  max-width: 1000px;
 }
 nav {
   width: 100%;
@@ -20,15 +22,16 @@ nav {
 }
 nav h1 {
   font-size: 50px;
-  color: #0f0f2d;
+  color: #827397;
 }
 nav button {
   font-size: 1rem;
-  background: #555a88;
+  background: #827397;
   color: #fff;
   padding: 10px 10px 10px 20px;
   border: none;
-  margin-right: -20px;
+  margin-top: 10px;
+  cursor: pointer;
 }
 .user-list {
   width: 100%;
@@ -39,9 +42,9 @@ nav button {
   margin-top: 50px;
 }
 .user-card {
-  width: 381px;
+  width: 360px;
   min-height: 274px;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #827397;
   border-radius: 4px;
   padding: 20px;
 }
@@ -49,12 +52,12 @@ nav button {
   font-size: 25px;
   line-height: 31px;
   text-align: center;
-  color: #0f0f2d;
+  color: #4d4c7d;
 }
 .user-info {
   width: 100%;
   padding: 15px 0;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #827397;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
@@ -64,16 +67,17 @@ nav button {
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: #d3d3d3;
+  color: #4d4c7d;
 }
 .user-info span {
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
   color: #302f2f;
+  margin-left: 10px;
 }
 .btn-card {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #827397;
   width: 100%;
   padding: 10px 0 0;
   display: flex;
@@ -85,6 +89,7 @@ nav button {
   height: 43px;
   font-size: 23px;
   border-radius: 4px;
+  cursor: pointer;
 }
 .btn-card button:nth-child(1) {
   background: #d85d5d;
@@ -102,27 +107,28 @@ nav button {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
 }
 .users-form form {
-  width: 419px;
+  width: 90%;
   height: 600px;
-  background-color: #fff;
+  background-color: #e9d5ca;
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
   position: relative;
+  max-width: 450px;
 }
 .users-form form h2 {
   font-weight: 700;
   font-size: 32px;
   line-height: 39px;
-  color: #0f0f2d;
+  color: #4d4c7d;
 }
 .users-form form div {
   display: flex;
@@ -132,15 +138,19 @@ nav button {
 .users-form form div label {
   font-size: 16px;
   line-height: 19px;
-  color: #000000;
+  color: #827397;
 }
 .users-form form div input {
-  width: 355px;
+  width: 100%;
   height: 48px;
   background: #f9fafc;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   padding: 10px;
+  outline: none;
+}
+.password-input {
+  position: relative;
 }
 .modal-remove {
   background-color: #fff;
@@ -153,9 +163,11 @@ nav button {
   position: relative;
 }
 .btn-to-accept {
-  background: #555a88;
+  background: #827397;
   color: #fff;
   padding: 15px;
+  border: none;
+  cursor: pointer;
 }
 .btn-close {
   position: absolute;
@@ -165,14 +177,19 @@ nav button {
   padding: 5px;
   border-radius: 50%;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
-.show-and-hide{
+.show-and-hide {
   position: absolute;
-  top: 385px;
-  right: 60px;
+  top: 10px;
+  right: 10px;
   font-size: 1.5rem;
   border: none;
   background: none;
+  cursor: pointer;
 }
 @media (max-width: 500px) {
   nav {
