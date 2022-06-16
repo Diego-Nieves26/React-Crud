@@ -153,8 +153,8 @@ nav button {
   position: relative;
 }
 .modal-remove {
-  background-color: #fff;
-  width: 419px;
+  background-color: #e9d5ca;
+  width: 370px;
   min-height: 265px;
   padding: 30px;
   display: flex;

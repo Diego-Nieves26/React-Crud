@@ -46,24 +46,32 @@ function App() {
       )}
       {userDeleted !== null && (
         <div className="modal">
-          <div className="modal-remove">
-            <button
+          <motion.div
+            className="modal-remove"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+          >
+            <motion.button
               className="btn-close"
               onClick={() => dispatch(setUserDeleted(null))}
+              whileHover={{ scale: 1.5 }}
+              whileTap={{ scale: 0.8 }}
             >
               <i className="bx bx-x"></i>
-            </button>
+            </motion.button>
             <h1>Eliminar Usuario</h1>
             <p>
               El usuario <b>{userDeleted}</b> se ha eliminado
             </p>
-            <button
+            <motion.button
               className="btn-to-accept"
               onClick={() => dispatch(setUserDeleted(null))}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.8 }}
             >
               Aceptar
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
       )}
     </div>

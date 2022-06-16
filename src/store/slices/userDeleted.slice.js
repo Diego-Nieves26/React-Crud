@@ -14,7 +14,6 @@ export const userDeletedSlice = createSlice({
 export const { setUserDeleted } = userDeletedSlice.actions;
 
 export const removeUser = (id, name) => (dispatch) => {
-  console.log(id);
   dispatch(setIsLoading(true));
   return axios
     .delete(`https://users-crud1.herokuapp.com/users/${id}/`)
