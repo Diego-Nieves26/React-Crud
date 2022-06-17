@@ -4,10 +4,30 @@ import { removeUser } from "../store/slices/userDeleted.slice";
 
 const UsersList = ({ users, selectUser }) => {
   const dispatch = useDispatch();
+
+  const containerAnimation = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.5,
+      },
+    },
+  };
+
+  const itemAnimation = {
+    hidden: { opacity: 0, scale: 0 },
+    show: { opacity: 1, scale: 1 },
+  };
   return (
-    <div className="user-list">
+    <motion.ul
+      className="user-list"
+      variants={containerAnimation}
+      initial="hidden"
+      animate="show"
+    >
       {users.map((user) => (
-        <div className="user-card" key={user.id}>
+        <motion.li className="user-card" key={user.id} variants={itemAnimation}>
           <h2>{user.first_name + " " + user.last_name}</h2>
           <div className="user-info">
             <h4>CORREO</h4>
@@ -39,9 +59,9 @@ const UsersList = ({ users, selectUser }) => {
               <i className="bx bx-pencil"></i>
             </motion.button>
           </div>
-        </div>
+        </motion.li>
       ))}
-    </div>
+    </motion.ul>
   );
 };
 
